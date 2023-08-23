@@ -36,3 +36,4 @@ x_variable = smp.symbols('1', real=True)
 surface = smp.symbols('s', real=True)
 
 print(smp.integrate(x_variable, surface))
+print("Pinche chems")
