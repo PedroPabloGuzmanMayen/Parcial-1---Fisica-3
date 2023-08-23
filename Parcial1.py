@@ -12,12 +12,16 @@ constant = smp.symbols("Eo", real = True)
 expression = 1/(4*smp.pi*constant)
 
 def ring(ratio):
+    ratio = smp.symbols(ratio, real = True)
     surface = smp.symbols('s', real=True)
     x_variable = smp.symbols('x', real=True)
+    linear_density2 = smp.symbols('Q', real=True)/(2*smp.pi * ratio)
     linear_density = smp.symbols('l', real=True, positive=True)*smp.symbols("ds", real=True)
-    ratio = ratio
+    f = 1/(x_variable**2+ratio**2)
     x_component = x_variable/smp.sqrt(x_variable**2 + ratio**2)
-    print(linear_density*x_component*expression)
+    equation = linear_density2*x_component*expression*f
+
+    print(smp.integrate(equation, (surface, 0, 2*smp.pi*ratio)))
 
 
 
@@ -32,8 +36,4 @@ def disc():
 
 
 
-x_variable = smp.symbols('1', real=True)
-surface = smp.symbols('s', real=True)
-
-print(smp.integrate(x_variable, surface))
-print("Pinche chems")
+ring('R')

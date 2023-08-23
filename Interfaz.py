@@ -10,6 +10,7 @@ class MatplotlibGUI:
         self.fig = Figure(figsize=(6, 4), dpi=100)
         self.ax = self.fig.add_subplot(111)
         self.ax.plot([1, 2, 3, 4], [10, 20, 25, 30], 'b-')
+        self.ax.grid(True)  # Add grid to the plot
 
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
         self.canvas_widget = self.canvas.get_tk_widget()
@@ -61,4 +62,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = MatplotlibGUI(root)
     root.mainloop()
-
