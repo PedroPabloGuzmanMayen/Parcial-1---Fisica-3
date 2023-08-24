@@ -1,62 +1,58 @@
 import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+import matplotlib.patches as patches
+import numpy as np
+
 
 class MatplotlibGUI:
+
+    #Esta función dibuja el anillo o el disco. El parámetro fill es un booleano el cuál indica si la figura debe ser rellenada o no (El disco se rellena par a mostrar que es sólido, el anillo no se rellena). El parámetro ratio indicará el radio de la figura
+    def plotRingorDisc(self, fill, ratio):
+        self.ax.clear() #Borrar todo lo que había en el plano
+        self.ax.grid(True) #Colocar nuevamente la cuadrícula, pues con la función anterior es borrada
+        ellipse = patches.Ellipse((0,0), ratio/2, ratio, fill = fill) #Usar la extensión patches de matplotlib para dibujar una elipse
+        self.ax.add_patch(ellipse) #Agregar la elipse al plano
+        self.canvas.draw() #Dibujar la elipse en el plano
+
+    def plotDisc(self):
+        self.ax.clear()
+        self.ax.grid(True)
+        self.canvas.draw()
+
+
+    def plotLine(self):
+        print("Line")
+    
+        
+
+
+
+
     def __init__(self, master):
         self.master = master
-        self.master.title("Interactive Matplotlib GUI")
+        self.master.title("Interfaz campos eléctricos")
 
         self.fig = Figure(figsize=(6, 4), dpi=100)
-        self.ax = self.fig.add_subplot(111)
-        self.ax.plot([1, 2, 3, 4], [10, 20, 25, 30], 'b-')
-        self.ax.grid(True)  # Add grid to the plot
+        self.ax = self.fig.add_subplot() #Agregar el plano 
+        self.ax.grid(True)  # Agregar cuadrícula 
 
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
-        self.canvas_widget = self.canvas.get_tk_widget()
-        self.canvas_widget.pack()
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.master) #Crear el objeto
+        self.canvas.get_tk_widget().pack() #Agregar a la pantalla de Tkinter 
 
-        self.canvas_widget.bind("<Button-1>", self.on_click)
-        self.canvas_widget.bind("<B1-Motion>", self.on_drag)
-        self.canvas_widget.bind("<MouseWheel>", self.on_scroll)
+        toolbar = NavigationToolbar2Tk(self.canvas, self.master, pack_toolbar = False) #Colocar la barra de navegación
+        toolbar.update()
+        toolbar.pack()
 
-        self.x_range = (0, 5)
-        self.y_range = (0, 35)
+        tk.Button(self.master, text= "Dibujar anillo", command = lambda: self.plotRing()).pack() #Botones para agregar anillos
+        tk.Button(self.master, text= "Dibujar disco", command = lambda:self.plotDisc() ).pack() #Botones para agregar el disco
+        tk.Button(self.master, text= "Dibujar línea", command = lambda:self.plotLine() ).pack() #Botón para agregar la línea de carga
 
-    def on_click(self, event):
-        self.last_x = event.x
-        self.last_y = event.y
 
-    def on_drag(self, event):
-        dx = (event.x - self.last_x) / self.fig.dpi
-        dy = (event.y - self.last_y) / self.fig.dpi
-        self.last_x = event.x
-        self.last_y = event.y
 
-        self.x_range = (self.x_range[0] - dx, self.x_range[1] - dx)
-        self.y_range = (self.y_range[0] + dy, self.y_range[1] + dy)
 
-        self.ax.set_xlim(self.x_range)
-        self.ax.set_ylim(self.y_range)
-        self.canvas.draw()
-
-    def on_scroll(self, event):
-        if event.delta > 0:
-            factor = 1.2
-        else:
-            factor = 1 / 1.2
-
-        x_center = (self.x_range[0] + self.x_range[1]) / 2
-        y_center = (self.y_range[0] + self.y_range[1]) / 2
-
-        self.x_range = (x_center - (x_center - self.x_range[0]) * factor,
-                        x_center + (self.x_range[1] - x_center) * factor)
-        self.y_range = (y_center - (y_center - self.y_range[0]) * factor,
-                        y_center + (self.y_range[1] - y_center) * factor)
-
-        self.ax.set_xlim(self.x_range)
-        self.ax.set_ylim(self.y_range)
-        self.canvas.draw()
+     
 
 if __name__ == "__main__":
     root = tk.Tk()
