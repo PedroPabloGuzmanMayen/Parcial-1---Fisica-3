@@ -19,20 +19,15 @@ def ring(ratio):
     linear_density = smp.symbols('Q', real=True)/(2*smp.pi * ratio)
     f = 1/(x_variable**2+ratio**2)
     x_component = x_variable/smp.sqrt(x_variable**2 + ratio**2)
-<<<<<<< Updated upstream
-    print(linear_density*x_component*expression)
-    
-=======
     equation = linear_density*x_component*expression*f
->>>>>>> Stashed changes
 
-    print(smp.integrate(equation, (surface, 0, 2*smp.pi*ratio)))
+    return smp.integrate(equation, (surface, 0, 2*smp.pi*ratio))
 
 #Está función se encarga de calcular el campo eléctrico de la línea
 def line():
     surface = smp.symbols('y', real=True)
     x_variable = smp.symbols('x', real=True)
-    linear_density = smp.symbols ****************************************
+    linear_density = smp.symbols 
 #Esta función calcula el campo de un disco
 def disc():
     pass
@@ -40,6 +35,5 @@ def disc():
 
 
 
-ring('R')
+print(ring('R'))
 
-print(smp.integrate(x_variable, surface))
