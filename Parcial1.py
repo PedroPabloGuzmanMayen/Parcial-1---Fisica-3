@@ -17,10 +17,10 @@ def ring(ratio):
     ratio = smp.symbols(ratio, real = True)
     surface = smp.symbols('s', real=True)
     x_variable = smp.symbols('x', real=True)
-    linear_density = smp.symbols('Q', real=True)/(2*smp.pi * ratio)
+    density = smp.symbols('Q', real=True)/(2*smp.pi * ratio)
     f = 1/(x_variable**2+ratio**2)
     x_component = x_variable/smp.sqrt(x_variable**2 + ratio**2)
-    equation = linear_density*x_component*expression*f
+    equation = density*x_component*expression*f
 
     return smp.integrate(equation, (surface, 0, 2*smp.pi*ratio))
 

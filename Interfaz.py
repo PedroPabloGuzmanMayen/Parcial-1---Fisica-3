@@ -12,14 +12,14 @@ class MatplotlibGUI:
     def plotRingorDisc(self, fill, ratio):
         self.ax.clear() #Borrar todo lo que había en el plano
         self.ax.grid(True) #Colocar nuevamente la cuadrícula, pues con la función anterior es borrada
-        ellipse = patches.Ellipse((0,0), ratio/2, ratio, fill = fill) #Usar la extensión patches de matplotlib para dibujar una elipse
+        ellipse = patches.Ellipse((0,0), 2*ratio/2, 2*ratio, fill = fill) #Usar la extensión patches de matplotlib para dibujar una elipse
         self.ax.add_patch(ellipse) #Agregar la elipse al plano
         self.canvas.draw() #Dibujar la elipse en el plano
 
     def plotLine(self, ratio):
         self.ax.clear() #Borrar todo lo que había en el plano
         self.ax.grid(True) #Colocar nuevamente la cuadrícula, pues con la función anterior es borrada
-        ellipse = patches.Rectangle((0,0), ratio/2, ratio) #Usar la extensión patches de matplotlib para dibujar una elipse
+        ellipse = patches.Rectangle((((-2*ratio/2)/2),(-2*ratio/2)), 2*ratio/2, 2*ratio) #Usar la extensión patches de matplotlib para dibujar una elipse
         self.ax.add_patch(ellipse) #Agregar la elipse al plano
         self.canvas.draw() #Dibujar la elipse en el plano
     
