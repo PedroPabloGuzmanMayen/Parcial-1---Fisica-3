@@ -16,14 +16,12 @@ class MatplotlibGUI:
         self.ax.add_patch(ellipse) #Agregar la elipse al plano
         self.canvas.draw() #Dibujar la elipse en el plano
 
-    def plotDisc(self):
-        self.ax.clear()
-        self.ax.grid(True)
-        self.canvas.draw()
-
-
-    def plotLine(self):
-        print("Line")
+    def plotLine(self, ratio):
+        self.ax.clear() #Borrar todo lo que había en el plano
+        self.ax.grid(True) #Colocar nuevamente la cuadrícula, pues con la función anterior es borrada
+        ellipse = patches.Rectangle((0,0), ratio/2, ratio) #Usar la extensión patches de matplotlib para dibujar una elipse
+        self.ax.add_patch(ellipse) #Agregar la elipse al plano
+        self.canvas.draw() #Dibujar la elipse en el plano
     
         
 
@@ -45,9 +43,9 @@ class MatplotlibGUI:
         toolbar.update()
         toolbar.pack()
 
-        tk.Button(self.master, text= "Dibujar anillo", command = lambda: self.plotRing()).pack() #Botones para agregar anillos
-        tk.Button(self.master, text= "Dibujar disco", command = lambda:self.plotDisc() ).pack() #Botones para agregar el disco
-        tk.Button(self.master, text= "Dibujar línea", command = lambda:self.plotLine() ).pack() #Botón para agregar la línea de carga
+        tk.Button(self.master, text= "Dibujar anillo", command = lambda: self.plotRingorDisc(False, 3)).pack() #Botones para agregar anillos
+        tk.Button(self.master, text= "Dibujar disco", command = lambda:self.plotRingorDisc(True, 3) ).pack() #Botones para agregar el disco
+        tk.Button(self.master, text= "Dibujar línea", command = lambda:self.plotLine(3) ).pack() #Botón para agregar la línea de carga
 
 
 
