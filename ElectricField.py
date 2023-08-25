@@ -10,4 +10,4 @@ class ElectricField:
         return smp.integrate((((self.constant)*(self.charge/(2*smp.pi*ratio))*cordinate)/((cordinate**2+ratio**2)**1.5)), (variable, 0, ((2*smp.pi)*ratio))) #Retornamos el valor de la integral respecto a S. Multiplicamos la constante 
 
 hola = ElectricField()
-print(hola.calcRing(15,37.5))
+print(hola.calcRing(65.83923,43.6578))
