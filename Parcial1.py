@@ -12,6 +12,8 @@ constant = smp.symbols("Eo", real = True)
 
 expression = 1/(4*smp.pi*constant)
 
+def getDensity():
+    pass
 
 def ring(ratio):
     ratio = smp.symbols(ratio, real = True)
