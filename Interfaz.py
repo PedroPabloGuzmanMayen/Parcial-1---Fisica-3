@@ -23,6 +23,15 @@ class MatplotlibGUI:
     def plotDOt(self, x_component, y_component):
         self.ax.plot(x_component, y_component, marker='o', markersize=8, color='red')
         self.canvas.draw()
+    
+    def calculateElectricField(self):
+        if self.option.get() == "Anillo":
+            self.plotRingorDisc(False, int(self.ratio.get()))
+        elif self.option.get() == "Disco":
+            self.plotRingorDisc(True, int(self.ratio.get()))
+        elif self.option.get() == "Línea":
+            self.plotLine(int(self.ratio.get()))
+        self.plotDOt([int(self.cordinates.get())], [0])
 
     
     def __init__(self, master):
@@ -46,14 +55,16 @@ class MatplotlibGUI:
         toolbar.pan() #Habilitar la navegación mediante el mouse
         #Definir los botones para dibujar las distribuciones de carga
         self.option = tk.StringVar()
-        self.option.set("Anillo")
         tk.Label(text="Elije la disribución de carga: ").pack()
         tk.OptionMenu(self.master, self.option, "Anillo", "Disco", "Línea").pack()
         tk.Label(text= "Elije las coordenadas del punto en el que quieres medir el campo eléctrico: ").pack()
-        self.cordinates = tk.Entry(self.master).pack()
+        self.cordinates = tk.Entry(self.master)
+        self.cordinates.pack()
         tk.Label(text="Elije el radio o longitud del campo").pack()
-        self.ratio = tk.Entry(self.master).pack()
-        
+        self.ratio = tk.Entry(self.master)
+        self.ratio.pack()
+        tk.Button(text= "Calcular campo eléctrico", command = lambda: self.calculateElectricField()).pack()
+
 
 
 

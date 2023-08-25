@@ -7,7 +7,8 @@ import numpy as np
 
 #Esta función se encargará de calcular el campo eléctrico del anillo
 
-charge = 0
+charge = 1e-6
+print(charge*2)
 constant = smp.symbols("Eo", real = True)
 
 expression = 1/(4*smp.pi*constant)
