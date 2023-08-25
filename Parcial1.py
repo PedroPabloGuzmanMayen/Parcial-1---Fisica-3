@@ -49,4 +49,5 @@ def disc(ratio):
 
 
 print(line('A'))
+print(disc('R'))
 
