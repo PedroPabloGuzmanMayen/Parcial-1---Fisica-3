@@ -30,6 +30,7 @@ def ring(ratio):
 def line(a):
     # Variables simbólicas
     x = smp.symbols('x', real=True)
+    a = smp.symbols('a', real=True)
     epsilon = smp.symbols('E_0', real=True)
     r_ = (x**2 + a**2)**(3/2)
     expression = a / r_
