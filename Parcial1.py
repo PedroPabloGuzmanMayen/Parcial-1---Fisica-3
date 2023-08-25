@@ -38,11 +38,14 @@ def line(a):
 
 
 #Esta función calcula el campo de un disco
-def disc():
-    pass
+def disc(ratio):
+    #Variables simbólicos
+    sigma = smp.symbols('sigma', real=True)
+    Q = smp.symbols('Q', real = True)
+    #Se reutiliza la función ring() para la integral de disc(), subss() funciona para sustituir
+    #el primer elemento, por el segundo, en este caso Q por sigma
+    return ring(ratio).subs(Q, sigma).simplify()
 
 
-
-
-print(ring('R'))
+print(line('A'))
 
