@@ -26,17 +26,18 @@ class MatplotlibGUI:
         self.canvas.draw()
     
     def calculateElectricField(self):
+        #Serie de condiciones las cuáles no permiten errores en el programa
         if self.option.get() == "":
             messagebox.showerror("Error", "Por favor, selecciona una opción")
         elif not self.cordinates.get() or not self.ratio.get():
             messagebox.showerror("Error", "Por favor, ingresa valores en los campos de coordenadas y radio")
-        elif not self.cordinates.isdigit():
+        elif not self.cordinates.get().isdigit():
             messagebox.showerror("Error", "Por favor, ingresa valores numéricos ")
-        elif not self.ratio.isdigit():
+        elif not self.ratio.get().isdigit():
             messagebox.showerror("Error", "Por favor, ingresa valores numericos")
         elif int(self.cordinates.get()) < 0:
             messagebox.showerror("Coordenadas negativas", "Por favor, ingresa solamente valores positivos")
-
+        #Si no hay ningún problema con los valores ingresados por el usuario, se ejecutará este trozo de código
         else:
             if self.option.get() == "Anillo":
                 self.plotRingorDisc(False, int(self.ratio.get()))
@@ -44,7 +45,7 @@ class MatplotlibGUI:
                 self.plotRingorDisc(True, int(self.ratio.get()))
             elif self.option.get() == "Línea":
                 self.plotLine(int(self.ratio.get()))
-            self.plotDOt([int(self.cordinates.get())], [0])
+            self.plotDOt([int(self.cordinates.get())], [0]) #El punto siempre se dibuja, no importa la opción del usuario
 
     
     def __init__(self, master):
@@ -54,7 +55,7 @@ class MatplotlibGUI:
         self.ax = self.fig.add_subplot()
         self.ax.grid(True)
         tk.Label(text="Elije la distribución de carga y las mediad que deseas para el radio o la longitud de esta").pack()
-        tk.Label(text="Nota: el valor de la distribución de carga es: ").pack()
+        tk.Label(text="Nota: el valor de la distribución de carga es: 1e-06 C ").pack()
 
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
         self.canvas.get_tk_widget().pack()
@@ -67,16 +68,16 @@ class MatplotlibGUI:
         toolbar.pack()
         toolbar.pan() #Habilitar la navegación mediante el mouse
         #Definir los botones para dibujar las distribuciones de carga
-        self.option = tk.StringVar()
+        self.option = tk.StringVar() #Variable para almacenar la opción seleccionada en el menu desplegable
         tk.Label(text="Elije la disribución de carga: ").pack()
         tk.OptionMenu(self.master, self.option, "Anillo", "Disco", "Línea").pack()
-        tk.Label(text= "Elije las coordenadas del punto en el que quieres medir el campo eléctrico: ").pack()
-        self.cordinates = tk.Entry(self.master)
+        tk.Label(text= "Elije las coordenadas del punto en el que quieres medir el campo eléctrico: ").pack() 
+        self.cordinates = tk.Entry(self.master) #Campo de texto para ingresar la coordenada deseada
         self.cordinates.pack()
         tk.Label(text="Elije el radio o longitud del campo").pack()
-        self.ratio = tk.Entry(self.master)
+        self.ratio = tk.Entry(self.master) #Campo de texto para ingresar el radio o longitud 
         self.ratio.pack()
-        tk.Button(text= "Calcular campo eléctrico", command = lambda: self.calculateElectricField()).pack()
+        tk.Button(text= "Calcular campo eléctrico", command = lambda: self.calculateElectricField()).pack() #Botón para calcular el campo
 
 
 
