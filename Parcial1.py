@@ -27,10 +27,16 @@ def ring(ratio):
     return smp.integrate(equation, (surface, 0, 2*smp.pi*ratio))
 
 #Está función se encarga de calcular el campo eléctrico de la línea
-def line():
-    surface = smp.symbols('y', real=True)
-    x_variable = smp.symbols('x', real=True)
-    linear_density = smp.symbols 
+def line(a):
+    # Variables simbólicas
+    x = smp.symbols('x', real=True)
+    epsilon = smp.symbols('E_0', real=True)
+    r_ = (x**2 + a**2)**(3/2)
+    expression = a / r_
+    electric_field = smp.integrate(expression, (x, -smp.oo, smp.oo))
+    return epsilon * electric_field
+
+
 #Esta función calcula el campo de un disco
 def disc():
     pass
