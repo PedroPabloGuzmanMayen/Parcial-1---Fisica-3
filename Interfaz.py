@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.patches as patches
@@ -25,13 +26,25 @@ class MatplotlibGUI:
         self.canvas.draw()
     
     def calculateElectricField(self):
-        if self.option.get() == "Anillo":
-            self.plotRingorDisc(False, int(self.ratio.get()))
-        elif self.option.get() == "Disco":
-            self.plotRingorDisc(True, int(self.ratio.get()))
-        elif self.option.get() == "Línea":
-            self.plotLine(int(self.ratio.get()))
-        self.plotDOt([int(self.cordinates.get())], [0])
+        if self.option.get() == "":
+            messagebox.showerror("Error", "Por favor, selecciona una opción")
+        elif not self.cordinates.get() or not self.ratio.get():
+            messagebox.showerror("Error", "Por favor, ingresa valores en los campos de coordenadas y radio")
+        elif not self.cordinates.isdigit():
+            messagebox.showerror("Error", "Por favor, ingresa valores numéricos ")
+        elif not self.ratio.isdigit():
+            messagebox.showerror("Error", "Por favor, ingresa valores numericos")
+        elif int(self.cordinates.get()) < 0:
+            messagebox.showerror("Coordenadas negativas", "Por favor, ingresa solamente valores positivos")
+
+        else:
+            if self.option.get() == "Anillo":
+                self.plotRingorDisc(False, int(self.ratio.get()))
+            elif self.option.get() == "Disco":
+                self.plotRingorDisc(True, int(self.ratio.get()))
+            elif self.option.get() == "Línea":
+                self.plotLine(int(self.ratio.get()))
+            self.plotDOt([int(self.cordinates.get())], [0])
 
     
     def __init__(self, master):
