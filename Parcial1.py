@@ -6,12 +6,17 @@ import numpy as np
 
 
 #Esta función se encargará de calcular el campo eléctrico del anillo
+<<<<<<< Updated upstream
 
 charge = 1e-6 
 print(charge*2)
+=======
+#sigma_0 = Q/A
+charge = 0
+>>>>>>> Stashed changes
 constant = smp.symbols("Eo", real = True)
 
-expression = 1/(4*smp.pi*constant)
+expression = 9e9 
 
 def getDensity():
     pass
@@ -49,6 +54,11 @@ def disc(ratio):
     return ring(ratio).subs(Q, sigma).simplify()
 
 
+<<<<<<< Updated upstream
 print(line('A'))
 print(disc('R'))
+=======
+print(disc('A'))
+print ("\u03C3")
+>>>>>>> Stashed changes
 
