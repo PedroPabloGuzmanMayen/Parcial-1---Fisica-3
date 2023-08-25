@@ -19,6 +19,11 @@ class MatplotlibGUI:
         rectangle = patches.Rectangle((((-2*ratio/2)/2),(-2*ratio/2)), 2*ratio/2, 2*ratio)
         self.ax.add_patch(rectangle)
         self.canvas.draw()
+
+    def plotDOt(self, x_component, y_component):
+        self.ax.plot(x_component, y_component, marker='o', markersize=8, color='red')
+        self.canvas.draw()
+
     
     def __init__(self, master):
         self.master = master
@@ -41,6 +46,7 @@ class MatplotlibGUI:
         tk.Button(self.master, text="Dibujar anillo", command=lambda: self.plotRingorDisc(False, 3)).pack()
         tk.Button(self.master, text="Dibujar disco", command=lambda: self.plotRingorDisc(True, 3)).pack()
         tk.Button(self.master, text="Dibujar línea", command=lambda: self.plotLine(3)).pack()
+        tk.Button(self.master, text="Punto",command=lambda: self.plotDOt([3], [4]) ).pack()
 
 if __name__ == "__main__":
     root = tk.Tk()
