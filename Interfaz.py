@@ -31,6 +31,8 @@ class MatplotlibGUI:
         self.fig = Figure(figsize=(6, 4), dpi=100)
         self.ax = self.fig.add_subplot()
         self.ax.grid(True)
+        tk.Label(text="Elije la distribución de carga y las mediad que deseas para el radio o la longitud de esta").pack()
+        tk.Label(text="Nota: el valor de la distribución de carga es: ").pack()
 
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
         self.canvas.get_tk_widget().pack()
@@ -43,10 +45,17 @@ class MatplotlibGUI:
         toolbar.pack()
         toolbar.pan() #Habilitar la navegación mediante el mouse
         #Definir los botones para dibujar las distribuciones de carga
-        tk.Button(self.master, text="Dibujar anillo", command=lambda: self.plotRingorDisc(False, 3)).pack()
-        tk.Button(self.master, text="Dibujar disco", command=lambda: self.plotRingorDisc(True, 3)).pack()
-        tk.Button(self.master, text="Dibujar línea", command=lambda: self.plotLine(3)).pack()
-        tk.Button(self.master, text="Punto",command=lambda: self.plotDOt([3], [4]) ).pack()
+        self.option = tk.StringVar()
+        self.option.set("Anillo")
+        tk.Label(text="Elije la disribución de carga: ").pack()
+        tk.OptionMenu(self.master, self.option, "Anillo", "Disco", "Línea").pack()
+        tk.Label(text= "Elije las coordenadas del punto en el que quieres medir el campo eléctrico: ").pack()
+        self.cordinates = tk.Entry(self.master).pack()
+        tk.Label(text="Elije el radio o longitud del campo").pack()
+        self.ratio = tk.Entry(self.master).pack()
+        
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
