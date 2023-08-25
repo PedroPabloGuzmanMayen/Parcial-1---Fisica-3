@@ -5,6 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 import matplotlib.patches as patches
 from mpl_interactions import ioff, panhandler, zoom_factory
 import matplotlib.pyplot as plt
+from ElectricField import ElectricField
 
 class MatplotlibGUI:
     def plotRingorDisc(self, fill, ratio):
