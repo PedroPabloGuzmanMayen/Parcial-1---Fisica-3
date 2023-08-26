@@ -5,5 +5,7 @@ Para usar el programa:
 - Instalar la librería scipy (pip install scipy)
 - Instalar la librería sympy (pip install sympy)
 - Instalar la librería tkinter (pip install tk)
+- Instalar la librería matplotlib (pip install matplotlib)
+
 
 
