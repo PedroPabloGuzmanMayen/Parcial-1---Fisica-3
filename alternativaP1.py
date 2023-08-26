@@ -1,20 +1,23 @@
-import sympy as smp 
+import sympy as smp
 #Declaración de variables
 pi = 3.1415
-pi_smp = smp.symbols('\u03C0')
-E0_smp = smp.symbols('\u03B50')
 k = 9e9
-k_smp = smp.symbols(f'1/(4{pi_smp}{E0_smp})')
-radius = 2
-Q = 1
-radius_smp = smp.symbols('R')
-lambda_smp = smp.symbols('\u03BB')
-lambda_ = Q/radius
-dQ_linesmp = lambda_smp/radius_smp
-sigma_ = Q/(4*pi*radius**2)
-
-#Densidades de carga
+Q = 1e-06
+epsilon_0  = 8.85e-12
 
 
-print(sigma_)
+def ring(ratio, coordinate):
+    variable = smp.symbols('S', real=True)
+    integral_expr = (((k * Q) / (2 * pi * ratio)) * coordinate) / ((coordinate**2 + ratio**2)**(3/2))
+    return smp.integrate(integral_expr, (variable, 0, (2 * pi * ratio)))
 
+def disc(ratio, coordinate):
+    variable = smp.symbols('r', real=True)
+    sigma = Q/(pi*ratio**2)
+    dQ = 2*pi*variable*sigma
+    integral_expr = ((k*dQ*coordinate)/(coordinate**2+variable**2)**(3/2))
+    return smp.integrate(integral_expr, (variable, 0, ratio))
+
+
+print(ring(15, 37.5))
+print(disc(1, 1))
