@@ -28,7 +28,8 @@ class MatplotlibGUI:
         self.canvas.draw() #Añadir a la gráfica
     #Esta función dibuja la flecha que indica el valor del campo eléctrico. El parámetro se refiere a la coordenada x
     def drawArrow(self, x_component):
-        self.ax.arrow(x = x_component, y = 0, dx= x_component, dy=0) #Dibujar la flecha con base es y=0 y la coordenada especifciada por el usuario. La longitud x será igual a la coordenada x, mientras que la altura será 0
+        self.ax.arrow(x=x_component, y=0, dx=x_component, dy=0, color='green', linewidth=2, head_width=0.2, head_length=0.3, head_starts_at_zero=True) #Dibujar la felcha
+        self.canvas.draw() #Dibujar la flecha con base es y=0 y la coordenada especifciada por el usuario. La longitud x será igual a la coordenada x, mientras que la altura será 0
     
     def calculateElectricField(self):
         #Si el usuario no ingresa ningun valor en los debidos campos, mandar el mensaje 
@@ -39,16 +40,22 @@ class MatplotlibGUI:
                 #Evaluar si los valores ingresados son números
                 cordinate_value = float(self.cordinates.get())
                 ratio_value = float(self.ratio.get())
+                result = "" #Variable para almacenar el resultado del campo eléctrico
+                field = ElectricField() #Instancia de la clase ElectricField, para utlizar las funciones de esta clase
                 #Si los valores son números, se dibujan y calculan los campos eléctricos de cada figura 
                 if self.option.get() == "Anillo":
                     self.plotRingorDisc(False, ratio_value)
+                    result = str(round(field.calcRing(ratio_value, cordinate_value), 5)) #Almacenar el resultado y redondearlo a 5 decimales
                 elif self.option.get() == "Disco":
                     self.plotRingorDisc(True, ratio_value)
+                    result = str(round(field.calcDisc(ratio_value, cordinate_value), 5))
                 elif self.option.get() == "Línea":
                     self.plotLine(ratio_value)
+                    result = str(round(field.calcLine(ratio_value, cordinate_value), 5))
         
-                self.plotDOt([cordinate_value])
-                self.drawArrow(cordinate_value)
+                self.plotDOt([cordinate_value]) #Dibujar el punto
+                self.drawArrow(cordinate_value) #Du¿ibujar la flecha
+                self.result_label.config(text= "El campo es: " + result+ " N/C") #Actualizar el texto de la etiqueta que almacena el resultado
             #Si no son valores numéricos, mostrar el error
             except ValueError:
                 messagebox.showerror("Error", "Por favor, ingresa valores numéricos")
@@ -84,6 +91,8 @@ class MatplotlibGUI:
         self.ratio = tk.Entry(self.master) #Campo de texto para ingresar el radio o longitud 
         self.ratio.pack()
         tk.Button(text= "Calcular campo eléctrico", command = lambda: self.calculateElectricField()).pack() #Botón para calcular el campo
+        self.result_label = tk.Label(self.master, text="") #Variable que almacena el resultado
+        self.result_label.pack()
 
 
 

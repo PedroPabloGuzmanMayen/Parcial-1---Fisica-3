@@ -22,7 +22,7 @@ class ElectricField:
         result, _ = quad(integrand_func, 0, float(ratio))  # Integrar utlizando scipy, almacenar en la variable result. Utilizar la coma para especificar el formato en que queremos el resultado
     
         return result #Retornar el resultado
-    
+    #Realizar el procedimiento anterior, slamente que con los valores correspondientes a una línea de carga
     def calcLine(self, lenght, cordinate):
         variable = smp.symbols("y", real = True)
         linear_density = self.charge/lenght
@@ -32,13 +32,3 @@ class ElectricField:
         result, _ = quad(integrand_func, float(-lenght/2), float(lenght/2))
         return result
 
-    
-
-
-hola = ElectricField()
-print(hola.calcRing(65.83923,43.6578))
-x = smp.symbols('r', real = True)
-print(((x)**2+(4)**2)**1.5)
-print(hola.calcDisc(133.8586,20.4555))
-print(hola.calcLine(3,4))
-print(hola.calcLine(3,4))
