@@ -5,8 +5,8 @@ from scipy.integrate import quad
 class ElectricField:
     
     def __init__(self):
-        self.charge = 1e-06
-        self.constant = 9e09
+        self.charge = 1e-06 #Valor de la carga 
+        self.constant = 9e09 #Valor de la constante k
 
     def calcRing(self, ratio, cordinate):
         variable = smp.symbols("S", real=True) #Indicar la variable con respecto a la cuál vamos a integrar
