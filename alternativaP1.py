@@ -10,14 +10,22 @@ def ring(ratio, coordinate):
     variable = smp.symbols('S', real=True)
     integral_expr = (((k * Q) / (2 * pi * ratio)) * coordinate) / ((coordinate**2 + ratio**2)**(3/2))
     return smp.integrate(integral_expr, (variable, 0, (2 * pi * ratio)))
-
+'''
 def disc(ratio, coordinate):
     variable = smp.symbols('r', real=True)
-    sigma = Q/(pi*ratio**2)
-    dQ = 2*pi*variable*sigma
-    integral_expr = ((k*dQ*coordinate)/(coordinate**2+variable**2)**(3/2))
-    return smp.integrate(integral_expr, (variable, 0, ratio))
+    sigma = Q / (pi * ratio**2)
+    dQ = 2 * pi * variable * sigma
+    integrand = ((k * dQ * coordinate) / (coordinate**2 + variable**2)**(3/2))
+    
+    integral_expr = smp.integrate(integrand, (variable, 0, ratio))
+    return integral_expr.evalf()  # Evaluate the result numerically
+
+'''
+
+
 
 
 print(ring(15, 37.5))
-print(disc(1, 1))
+x = smp.symbols("r", real=True)
+
+print(2*x)
