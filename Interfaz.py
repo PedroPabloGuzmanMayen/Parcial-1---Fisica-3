@@ -8,48 +8,50 @@ import matplotlib.pyplot as plt
 from ElectricField import ElectricField
 
 class MatplotlibGUI:
+    #Esta función dibuja el anillo o el disco, pues son figuras similares. El parámetro fill es un booleano es cuál determino si la figura debe rellenarse o no (si es disco hay que rellenar la figura, si es anillo no hay que rellenar). El parámetro ratio es el radio de la figura
     def plotRingorDisc(self, fill, ratio):
-        self.ax.clear()
-        self.ax.grid(True)
-        ellipse = patches.Ellipse((0,0), 2*ratio/2, 2*ratio, fill=fill)
-        self.ax.add_patch(ellipse)
-        self.canvas.draw()
-
+        self.ax.clear() #Borrar todo lo que hay en la gráfica
+        self.ax.grid(True) #Dibujar nuevamente la cuadrícula
+        ellipse = patches.Ellipse((0,0), 2*ratio/2, 2*ratio, fill=fill) #Usar la librería patches para dibujar la una elipse con centro en el origen y con el radio especificado por el usuario
+        self.ax.add_patch(ellipse) #Añadir la elipse al gráfico
+        self.canvas.draw() #Mostrar la elipse
+    #Esta función dibuja la línea de carga. El parémetro ratio es la longitud deseada de la línea
     def plotLine(self, ratio):
-        self.ax.clear()
-        self.ax.grid(True)
-        rectangle = patches.Rectangle((((-2*ratio/2)/2),(-2*ratio/2)), 2*ratio/2, 2*ratio)
-        self.ax.add_patch(rectangle)
-        self.canvas.draw()
-
-    def plotDOt(self, x_component, y_component):
-        self.ax.plot(x_component, y_component, marker='o', markersize=8, color='red')
-        self.canvas.draw()
+        self.ax.clear() #Borrar todo lo que hay en la gráfica
+        self.ax.grid(True) #Dibujar la cuadrícula
+        rectangle = patches.Rectangle((((-2*ratio/2)/2),(-2*ratio/2)), 2*ratio/2, 2*ratio) #Usar la librería patches y dibujar un rectángulo con centro en el origen y longitud especificada por el usuario
+        self.ax.add_patch(rectangle) #Añadir el rectángulo al gráfico
+        self.canvas.draw() #Mostrar el rectángulo
+    #Esta función dibuja el punto especificado por el usuario. EL parámetro es la coordenada x especificada por el usuario
+    def plotDOt(self, x_component):
+        self.ax.plot(x_component, [0], marker='o', markersize=8, color='red') #DIbujar el punto especificado
+        self.canvas.draw() #Añadir a la gráfica
+    #Esta función dibuja la flecha que indica el valor del campo eléctrico. El parámetro se refiere a la coordenada x
     def drawArrow(self, x_component):
-        self.ax.arrow(x = x_component, y = 0, dx= 5, dy=0)
+        self.ax.arrow(x = x_component, y = 0, dx= x_component, dy=0) #Dibujar la flecha con base es y=0 y la coordenada especifciada por el usuario. La longitud x será igual a la coordenada x, mientras que la altura será 0
     
     def calculateElectricField(self):
-        #Serie de condiciones las cuáles no permiten errores en el programa
+        #Si el usuario no ingresa ningun valor en los debidos campos, mandar el mensaje 
         if self.option.get() == "":
             messagebox.showerror("Error", "Por favor, selecciona una opción")
-        elif not self.cordinates.get() or not self.ratio.get():
-            messagebox.showerror("Error", "Por favor, ingresa valores en los campos de coordenadas y radio")
-        elif not self.cordinates.get().isdigit():
-            messagebox.showerror("Error", "Por favor, ingresa valores numéricos ")
-        elif not self.ratio.get().isdigit():
-            messagebox.showerror("Error", "Por favor, ingresa valores numericos")
-        elif int(self.cordinates.get()) < 0:
-            messagebox.showerror("Coordenadas negativas", "Por favor, ingresa solamente valores positivos")
-        #Si no hay ningún problema con los valores ingresados por el usuario, se ejecutará este trozo de código
         else:
-            if self.option.get() == "Anillo":
-                self.plotRingorDisc(False, float(self.ratio.get()))
-            elif self.option.get() == "Disco":
-                self.plotRingorDisc(True, float(self.ratio.get()))
-            elif self.option.get() == "Línea":
-                self.plotLine(int(self.ratio.get()))
-            self.plotDOt([int(self.cordinates.get())], [0]) #El punto siempre se dibuja, no importa la opción del usuario
-            self.drawArrow(int(self.cordinates.get()))
+            try:
+                #Evaluar si los valores ingresados son números
+                cordinate_value = float(self.cordinates.get())
+                ratio_value = float(self.ratio.get())
+                #Si los valores son números, se dibujan y calculan los campos eléctricos de cada figura 
+                if self.option.get() == "Anillo":
+                    self.plotRingorDisc(False, ratio_value)
+                elif self.option.get() == "Disco":
+                    self.plotRingorDisc(True, ratio_value)
+                elif self.option.get() == "Línea":
+                    self.plotLine(ratio_value)
+        
+                self.plotDOt([cordinate_value])
+                self.drawArrow(cordinate_value)
+            #Si no son valores numéricos, mostrar el error
+            except ValueError:
+                messagebox.showerror("Error", "Por favor, ingresa valores numéricos")
 
     
     def __init__(self, master):
