@@ -19,7 +19,7 @@ class MatplotlibGUI:
     def plotLine(self, ratio):
         self.ax.clear() #Borrar todo lo que hay en la gráfica
         self.ax.grid(True) #Dibujar la cuadrícula
-        rectangle = patches.Rectangle((((-2*ratio/2)/2),(-2*ratio/2)), 2*ratio/2, 2*ratio) #Usar la librería patches y dibujar un rectángulo con centro en el origen y longitud especificada por el usuario
+        rectangle = patches.Rectangle((((-ratio/2)/2),(-ratio/2)), ratio/2, ratio) #Usar la librería patches y dibujar un rectángulo con centro en el origen y longitud especificada por el usuario
         self.ax.add_patch(rectangle) #Añadir el rectángulo al gráfico
         self.canvas.draw() #Mostrar el rectángulo
     #Esta función dibuja el punto especificado por el usuario. EL parámetro es la coordenada x especificada por el usuario

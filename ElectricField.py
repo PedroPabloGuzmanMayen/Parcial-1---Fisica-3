@@ -23,7 +23,14 @@ class ElectricField:
     
         return result #Retornar el resultado
     
-    def calcLine()
+    def calcLine(self, lenght, cordinate):
+        variable = smp.symbols("y", real = True)
+        linear_density = self.charge/lenght
+        expression = cordinate/(cordinate**2+variable**2)**(3/2)
+        integrand = self.constant*linear_density*expression
+        integrand_func = smp.lambdify(variable, integrand, 'numpy' )
+        result, _ = quad(integrand_func, float(-lenght/2), float(lenght/2))
+        return result
 
     
 
@@ -33,3 +40,5 @@ print(hola.calcRing(65.83923,43.6578))
 x = smp.symbols('r', real = True)
 print(((x)**2+(4)**2)**1.5)
 print(hola.calcDisc(133.8586,20.4555))
+print(hola.calcLine(3,4))
+print(hola.calcLine(3,4))
