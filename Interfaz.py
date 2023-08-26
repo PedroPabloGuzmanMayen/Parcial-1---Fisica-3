@@ -25,6 +25,8 @@ class MatplotlibGUI:
     def plotDOt(self, x_component, y_component):
         self.ax.plot(x_component, y_component, marker='o', markersize=8, color='red')
         self.canvas.draw()
+    def drawArrow(self, x_component):
+        self.ax.arrow(x = x_component, y = 0, dx= 5, dy=0)
     
     def calculateElectricField(self):
         #Serie de condiciones las cuáles no permiten errores en el programa
@@ -41,12 +43,13 @@ class MatplotlibGUI:
         #Si no hay ningún problema con los valores ingresados por el usuario, se ejecutará este trozo de código
         else:
             if self.option.get() == "Anillo":
-                self.plotRingorDisc(False, int(self.ratio.get()))
+                self.plotRingorDisc(False, float(self.ratio.get()))
             elif self.option.get() == "Disco":
-                self.plotRingorDisc(True, int(self.ratio.get()))
+                self.plotRingorDisc(True, float(self.ratio.get()))
             elif self.option.get() == "Línea":
                 self.plotLine(int(self.ratio.get()))
             self.plotDOt([int(self.cordinates.get())], [0]) #El punto siempre se dibuja, no importa la opción del usuario
+            self.drawArrow(int(self.cordinates.get()))
 
     
     def __init__(self, master):
