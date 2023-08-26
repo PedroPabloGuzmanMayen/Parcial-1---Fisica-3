@@ -1,0 +1,9 @@
+Para usar el programa:
+
+- Instalar la librería numpy (pip install numpy en la terminal)
+- Instalar la librería mpl interactions (pip install mpl_interactions)
+- Instalar la librería scipy (pip install scipy)
+- Instalar la librería sympy (pip install sympy)
+- Instalar la librería tkinter (pip install tk)
+
+
